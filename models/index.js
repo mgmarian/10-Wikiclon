@@ -1,5 +1,5 @@
 const { Sequelize, Model, DataTypes } = require('sequelize');
-const db = new Sequelize('postgres://carlosd76:USER@localhost:5432/wiki', {logging: false});
+const db = new Sequelize('postgres://mgmarian:admin@localhost:5432/wiki', {logging: false});
 
 //const sequelize = new Sequelize();
 
@@ -24,6 +24,12 @@ Page.init({
   date: {
     type: Sequelize.DATE,
     defaultValue: Sequelize.NOW
+  },
+  getUrl: {
+    type: Sequelize.VIRTUAL,
+    get(){
+      return '/wiki/' + this.urlTitle;
+    }
   }
 }, { sequelize: db, modelName: 'page' });
 
