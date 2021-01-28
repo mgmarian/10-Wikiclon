@@ -1,5 +1,5 @@
 const { Sequelize, Model, DataTypes } = require('sequelize');
-const db = new Sequelize('postgres://mgmarian:admin@localhost:5432/wiki', {logging: false});
+const db = new Sequelize('postgres://carlosd76:USER@localhost:5432/wiki', {logging: false});
 
 //const sequelize = new Sequelize();
 
@@ -19,9 +19,12 @@ Page.init({
     allowNull: false,
   },
   status: {
-    type: Sequelize.ENUM('open', 'closed'),
-    allowNull: false,
+    type: Sequelize.ENUM('open', 'closed')
   },
+  date: {
+    type: Sequelize.DATE,
+    defaultValue: Sequelize.NOW
+  }
 }, { sequelize: db, modelName: 'page' });
 
 
@@ -35,6 +38,9 @@ User.init({
     email: {
         type: Sequelize.STRING,
         allowNull: false,
+        validate: {
+          isEmail: true
+        }
     }
 }, { sequelize: db, modelName: 'user' });
 
